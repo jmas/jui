@@ -1,5 +1,5 @@
-import Form from '../../src/Form';
-import SpinnerDialog from '../../src/SpinnerDialog';
+import Form from '~/src/Form';
+import SpinnerDialog from '~/src/SpinnerDialog';
 
 export default class MyForm extends Form {
     get defaultProps () {

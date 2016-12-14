@@ -1,6 +1,6 @@
-import Dialog from '../../src/Dialog';
-import SpinnerDialog from '../../src/SpinnerDialog';
-import MessageDialog from '../../src/MessageDialog';
+import Dialog from '~/src/Dialog';
+import SpinnerDialog from '~/src/SpinnerDialog';
+import MessageDialog from '~/src/MessageDialog';
 import MyForm from './MyForm';
 
 export default class MyDialog extends Dialog {

@@ -1,4 +1,4 @@
-import Component from '../../src/Component';
+import Component from '~/src/Component';
 import MyDialog from './MyDialog';
 
 export default class MyApp extends Component {

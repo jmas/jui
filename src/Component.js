@@ -57,7 +57,14 @@ export default class Component {
         this._refs = {};
         for (let i=0; i<refs.length; i++) {
             const refName = refs[i].getAttribute('data-ref');
-            this._refs[refName] = refs[i];
+            if (!this._refs[refName]) {
+                this._refs[refName] = refs[i];
+            } else {
+                if (!(this._refs[refName] instanceof Array)) {
+                    this._refs[refName] = [this._refs[refName]];
+                }
+                this._refs[refName].push(refs[i]);
+            }
         }
     }
 }

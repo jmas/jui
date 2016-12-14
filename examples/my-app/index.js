@@ -1,5 +1,5 @@
 import MyApp from './MyApp';
 
 const app = new MyApp({
-    rootEl: document.getElementById('root1')
+    rootEl: document.getElementById('root')
 });

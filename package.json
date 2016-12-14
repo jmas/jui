@@ -1,0 +1,19 @@
+{
+  "name": "jui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "my-app": "browserify ./examples/my-app/index.js --debug -o ./examples/my-app/bundle.js -t [ babelify --presets es2015,stage-2,stage-0,stage-1 --sourceMapsAbsolute ]"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babelify": "^7.3.0"
+  }
+}

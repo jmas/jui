@@ -1,0 +1,255 @@
+:root {
+    --button-normal-color: blue;
+    --button-primary-color: green;
+    --button-warning-color: red;
+    --button-alert-color: orange;
+}
+
+/* overrides */
+
+body {
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* helpers */
+
+.is-hidden {
+    display: none !important;
+}
+
+/* buttons */
+
+.button {
+    border: none;
+    background-color: transparent;
+    border-radius: 3px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.button.is-normal {
+    background-color: var(--button-normal-color);
+    color: #fff;
+}
+
+.button.is-primary {
+    background-color: var(--button-primary-color);
+    color: #fff;
+}
+
+.button.is-warning {
+    background-color: var(--button-warning-color);
+    color: #fff;
+}
+
+.button.is-alert {
+    background-color: var(--button-alert-color);
+    color: #fff;
+}
+
+/* dialog */
+
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .25);
+    display: table-cell;
+    text-align: center;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.dialog:before {
+    display: inline-block;
+    content: '';
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.dialog-box {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+    display: inline-block;
+    padding: 35px;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 4px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    white-space: normal;
+    width: 100%;
+}
+
+.dialog-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding: 0;
+    line-height: 35px;
+    background-color: transparent;
+    font-size: 170%;
+    cursor: pointer;
+}
+
+.dialog.is-small .dialog-box {
+    max-width: 250px;
+}
+
+.dialog.is-medium .dialog-box {
+    max-width: 500px;
+}
+
+.dialog.is-large .dialog-box {
+    max-width: 1000px;
+}
+
+.dialog.is-full .dialog-box {
+    max-width: 100%;
+}
+
+.dialog.is-text-centered .dialog-box {
+    text-align: center;
+}
+
+/**
+ * Spinner component.
+ * @example
+ * <div class="spinner">
+ *  <div class="spinner-animation">
+ *    <div class="spinner-animation-item spinner-animation-r1"></div>
+ *    <div class="spinner-animation-item spinner-animation-r2"></div>
+ *    <div class="spinner-animation-item spinner-animation-r3"></div>
+ *    <div class="spinner-animation-item spinner-animation-r4"></div>
+ *    <div class="spinner-animation-item spinner-animation-r5"></div>
+ *  </div>
+ *  <div class="spinner-message">Loading&hellip;</div>
+ * </div>
+ */
+.spinner-dialog .dialog-box {
+    padding: 10px;
+}
+.spinner {
+    position: relative;
+    margin: 1.46667rem auto;
+    width: 6.33333rem;
+    height: 3.66667rem;
+    text-align: center;
+    font-size: 0.73333rem; }
+.spinner-animation {
+    height: 100%; }
+.spinner-animation-item {
+    background-color: #a5c559;
+    height: 100%;
+    width: 0.53333rem;
+    display: inline-block;
+    -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    margin-left: 0.26667rem;
+    margin-right: 0.26667rem; }
+.spinner-animation-r2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s; }
+.spinner-animation-r3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s; }
+.spinner-animation-r4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s; }
+.spinner-animation-r5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s; }
+.spinner-message {
+    position: absolute;
+    top: 3.66667rem;
+    left: 0;
+    width: 6.33333rem;
+    text-align: center; }
+.spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(29, 43, 59, 0.15);
+    z-index: 1000; }
+.spinner-container .spinner {
+    margin: inherit;
+    width: auto; }
+.spinner-container .spinner-message {
+    position: static;
+    top: inherit;
+    left: inherit;
+    width: auto; }
+.spinner-container.is-embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1000; }
+.spinner-container.is-embed .spinner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto; }
+.spinner-container.large .spinner-holder {
+    width: 19.8rem;
+    height: 10.26667rem; }
+.spinner-container.large .spinner-holder .spinner {
+    font-size: 1rem; }
+.spinner-container.large .spinner-holder .spinner-message {
+    margin-top: 0.73333rem; }
+.spinner-holder {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 13.33333rem;
+    height: 6.6rem;
+    background-color: #fff;
+    padding: 1.46667rem 0.73333rem;
+    border-radius: 3px;
+    box-shadow: 0 0.13333rem 0.66667rem rgba(0, 0, 0, 0.2); }
+.spinner-close {
+    position: absolute;
+    top: 0.33333rem;
+    right: 0.33333rem;
+    color: #9B9B9B;
+    cursor: pointer;
+    line-height: .6;
+    font-size: 1.46667rem;
+    padding: 0.33333rem; }
+
+@-webkit-keyframes sk-stretchdelay {
+    0%, 40%, 100% {
+        -webkit-transform: scaleY(0.4); }
+    20% {
+        -webkit-transform: scaleY(1); } }
+
+@keyframes sk-stretchdelay {
+    0%, 40%, 100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4); }
+    20% {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1); } }

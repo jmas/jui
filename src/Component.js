@@ -1,12 +1,11 @@
 export default class Component {
     constructor (props={}) {
         this._props = { ...this.defaultProps, ...props };
-        this._rootEl = this._props.rootEl;
-        this._el = null;
+        this._mountEl = this._props.mountEl;
         this._refs = {};
-        if (!this._rootEl) {
-            this._rootEl = document.createElement('div');
-            document.body.appendChild(this._rootEl);
+        if (!this._mountEl) {
+            this._mountEl = document.createElement('div');
+            document.body.appendChild(this._mountEl);
         }
         this.render();
     }
@@ -15,16 +14,8 @@ export default class Component {
         return {};
     }
 
-    get tagName () {
-        return 'div';
-    }
-
     get content () {
         return null;
-    }
-
-    get el () {
-        return this._el;
     }
 
     get refs () {
@@ -45,17 +36,16 @@ export default class Component {
     }
 
     clean () {
-        while (this._rootEl.firstChild) {
-            this._rootEl.removeChild(this._rootEl.firstChild);
+        while (this._mountEl.firstChild) {
+            this._mountEl.removeChild(this._mountEl.firstChild);
         }
     }
 
     render () {
-        const el = document.createElement(this.tagName);
-        const content = this.preparedContent;
-        this._el = el;
-        this._el.insertAdjacentHTML('afterbegin', content || '');
-        const refs = this._el.querySelectorAll('[data-ref]');
+        const content = this.preparedContent.replace(/>\s+</gm, '><');
+        this.clean();
+        this._mountEl.insertAdjacentHTML('afterbegin', content || '');
+        const refs = this._mountEl.querySelectorAll('[data-ref]');
         this._refs = {};
         for (let i=0; i<refs.length; i++) {
             const refName = refs[i].getAttribute('data-ref');
@@ -68,7 +58,5 @@ export default class Component {
                 this._refs[refName].push(refs[i]);
             }
         }
-        this.clean();
-        this._rootEl.appendChild(el);
     }
 }

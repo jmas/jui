@@ -12,22 +12,18 @@ export default class Dialog extends Component {
     }
 
     get preparedContent () {
-        return `<div class="dialog-box" role="dialog">
-            <div class="dialog-content" data-ref="content">${ this.content || '' }</div>
-            ${ this.props.isClosable ? `<button class="dialog-close" data-ref="closeButton">&times;</button>`: '' }
-        </div>`;
+        return `
+            <div class="dialog ${ this.props.className || '' } ${ !this.props.isOpen ? 'is-hidden': '' }">
+                <div class="dialog-box" role="dialog">
+                    <div class="dialog-content" data-ref="content">${ this.content || '' }</div>
+                    ${ this.props.isClosable ? `<button class="dialog-close" data-ref="closeButton">&times;</button>`: '' }
+                </div>
+            </div>
+        `;
     }
 
     render () {
-
         super.render();
-        if (this.props.className) {
-            this.el.classList = this.props.className;
-            this.el.classList.add('dialog');
-        }
-        if (!this.props.isOpen) {
-            this.el.classList.add('is-hidden');
-        }
         if (this.props.isClosable) {
             this.refs.closeButton.addEventListener('click', this._handleCloseButtonClick.bind(this));
         }
@@ -49,8 +45,8 @@ export default class Dialog extends Component {
     }
 
     destroy () {
-        if (document.body.contains(this._rootEl)) {
-            document.body.removeChild(this._rootEl);
+        if (document.body.contains(this._mountEl)) {
+            document.body.removeChild(this._mountEl);
         } else {
             this.clean();
         }

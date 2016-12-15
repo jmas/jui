@@ -17,67 +17,31 @@ Then open `examples/my-app/index.html` in browser (Google Chrome recommended).
 
 ## Component
 
-### Lifecycle
-
-1. Creating a new instance of the component
-2. Call `render()`
-2.1. Create element that can be accessed by `this.el`
-2.2. Insert `template` inside `this.el`
-
-
 ### Props
 
-Component props is an key-value object. You can pass props to component constructor in following way:
+Component props is an key-value object.
 
-```js
-const myDialog = new MyDialog({
-    destroyOnClose: true // <- here is a property `destroyOnClose`
-});
-myDialog.open();
-```
+### Constructor
 
-Than you can access the property inside component by `this.props.destroyOnClose`:
+Component constructor receive one parameter `props`.
 
-```js
-close () {
-    this.props = { isOpen: false };
-    if (this.props.destroyOnClose) { // <- here we using the property
-        this.destroy();
-    }
-}
-```
+### Special prop `mountEl`
 
-### defaultProps
+It is an root element where component is mounted. This element do not changes by component.
+It used just for render component inside.
 
-When you creating the component you can set a list of default properties in following way:
+### Render
 
-```js
-get defaultProps () {
-    // Here is a list of props
-    return {
-        ...super.defaultProps, // <- we also need to grab props from parent
-        isClosable: true,
-        className: 'is-medium',
-        isOpen: false,
-        destroyOnClose: false
-    };
-}
-```
+This process contains few tree: 1. clean content from the `mountEl`, 2. insert new component content, 
+3. collect `refs`.
 
-Default properties can be override by properties passed to constructor.
-So you always can control set of properties outside the component.
+You can re-define `render()` method at child class of `Component` and put all element-specific logic 
+(add event listeners etc.) there. Note: you should call `super.render()`.
 
-### Set props
+### Access to elements through `refs`
 
-You can set (change) properties outside and inside the component. For example:
+You can give to each element attribute `data-ref="<refName>"`. Then after render you can access `this.refs.<refName>`
+to get access to elements. It's very useful when you override `render()` method and wants get quick
+access to specific element.
 
-```js
-// outside
-myDialog.props = { isOpen: false };
-
-// inside
-this.props = { isOpen: true };
-```
-
-Every time when you set (change) props component will be re-rendered.
-
+Note: if you give `data-ref` to two or more elements - you will get array of elements in `this.refs.<refName>`.

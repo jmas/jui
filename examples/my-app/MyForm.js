@@ -1,7 +1,7 @@
-import Form from '~/src/Form';
+import Component from '~/src/Component';
 import SpinnerDialog from '~/src/SpinnerDialog';
 
-export default class MyForm extends Form {
+export default class MyForm extends Component {
     get defaultProps () {
         return {
             users: [
@@ -21,36 +21,38 @@ export default class MyForm extends Form {
 
     get content () {
         return `
-            <h2>Form example</h2>
-            <p>
-                <label>Input</label>
-                <input type="text" name="name" value="${ this.props.data.name || '' }" data-ref="name" />
-            </p>
-            <p>
-                <label>Select</label>
-                <select data-ref="user">
-                    ${ this.props.users.map((user) => `
-                        <option ${ this.props.data.user===user ? 'selected': '' }>${ user }</option>
+            <form data-ref="form">
+                <h2>Form example</h2>
+                <p>
+                    <label>Input</label>
+                    <input type="text" name="name" value="${ this.props.data.name || '' }" data-ref="name" />
+                </p>
+                <p>
+                    <label>Select</label>
+                    <select data-ref="user">
+                        ${ this.props.users.map((user) => `
+                            <option ${ this.props.data.user===user ? 'selected': '' }>${ user }</option>
+                        `).join('') }
+                    </select>
+                </p>
+                <p>
+                    ${ this.props.fruits.map((fruit) => `
+                        <label>
+                            <input data-ref="fruitCheckboxes" type="checkbox" name="fruits[]" value="${ fruit }" ${ this.props.data.fruits.indexOf(fruit)!==-1 ? 'checked': '' } />
+                            ${ fruit }
+                        </label>
                     `).join('') }
-                </select>
-            </p>
-            <p>
-                ${ this.props.fruits.map((fruit) => `
-                    <label>
-                        <input data-ref="fruitCheckboxes" type="checkbox" name="fruits[]" value="${ fruit }" ${ this.props.data.fruits.indexOf(fruit)!==-1 ? 'checked': '' } />
-                        ${ fruit }
-                    </label>
-                `).join('') }
-            </p>
-            <p>
-                ${ this.props.fruits.map((fruit) => `
-                    <label>
-                        <input data-ref="fruitRadios" type="radio" name="fruit" value="${ fruit }" ${ this.props.data.fruit===fruit ? 'checked': '' } />
-                        ${ fruit }
-                    </label>
-                `).join('') }
-            </p>
-            <button type="submit" class="button is-primary">Send</button>
+                </p>
+                <p>
+                    ${ this.props.fruits.map((fruit) => `
+                        <label>
+                            <input data-ref="fruitRadios" type="radio" name="fruit" value="${ fruit }" ${ this.props.data.fruit===fruit ? 'checked': '' } />
+                            ${ fruit }
+                        </label>
+                    `).join('') }
+                </p>
+                <button type="submit" class="button is-primary">Send</button>
+            </form>
         `;
     }
 
@@ -73,6 +75,6 @@ export default class MyForm extends Form {
 
     render () {
         super.render();
-        this.el.addEventListener('submit', this._handleFormSubmit.bind(this));
+        this.refs.form.addEventListener('submit', this._handleFormSubmit.bind(this));
     }
 }

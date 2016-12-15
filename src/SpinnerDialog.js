@@ -4,7 +4,7 @@ export default class SpinnerDialog extends Dialog {
     get defaultProps () {
         return {
             ...super.defaultProps,
-            className: 'is-small',
+            className: 'spinner-dialog is-small',
             isClosable: false
         };
     }
@@ -35,10 +35,5 @@ export default class SpinnerDialog extends Dialog {
             }
             setTimeout(() => this.close(), this.props.closeTimeout);
         }
-    }
-
-    render () {
-        super.render();
-        this.el.classList.add('spinner-dialog');
     }
 }

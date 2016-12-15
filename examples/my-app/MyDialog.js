@@ -39,6 +39,6 @@ export default class MyDialog extends Dialog {
         super.render();
         this.refs.button.addEventListener('click', this._handleButtonClick.bind(this));
         this.refs.messageButton.addEventListener('click', this._handleMessageClick.bind(this));
-        const myForm = new MyForm({ rootEl: this.refs.formContainer });
+        const myForm = new MyForm({ mountEl: this.refs.formContainer });
     }
 }

@@ -1,5 +1,8 @@
-export default class Component {
+import Emitter from './Emitter';
+
+export default class Component extends Emitter {
     constructor (props={}) {
+        super();
         this._props = { ...this.defaultProps, ...props };
         this._mountEl = this._props.mountEl;
         this._refs = {};

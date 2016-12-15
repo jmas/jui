@@ -41,5 +41,7 @@ export default class MyDialog extends Dialog {
         this.refs.button.addEventListener('click', this._handleButtonClick.bind(this));
         this.refs.messageButton.addEventListener('click', this._handleMessageClick.bind(this));
         const myForm = new MyForm({ mountEl: this.refs.formContainer });
+        myForm.on('submit', (payload) => console.log(payload));
+        myForm.on('submit', (payload) => console.log(payload));
     }
 }

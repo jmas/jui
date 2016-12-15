@@ -71,6 +71,7 @@ export default class MyForm extends Component {
             destroyOnClose: true
         });
         spinnerDialog.open();
+        this.emit('submit', this.props.data);
     }
 
     render () {

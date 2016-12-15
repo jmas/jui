@@ -106,6 +106,7 @@ body {
     background-color: transparent;
     font-size: 170%;
     cursor: pointer;
+    color: gray;
 }
 
 .dialog.is-small .dialog-box {

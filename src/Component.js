@@ -49,10 +49,8 @@ export default class Component {
     render () {
         const el = document.createElement(this.tagName);
         const template = this.template;
-        this.clean();
-        this._rootEl.appendChild(el);
         this._el = el;
-        this._el.innerHTML = template || '';
+        this._el.insertAdjacentHTML('afterbegin', template || '');
         const refs = this._el.querySelectorAll('[data-ref]');
         this._refs = {};
         for (let i=0; i<refs.length; i++) {
@@ -66,5 +64,7 @@ export default class Component {
                 this._refs[refName].push(refs[i]);
             }
         }
+        this.clean();
+        this._rootEl.appendChild(el);
     }
 }

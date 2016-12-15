@@ -12,6 +12,7 @@ export default class MyDialog extends Dialog {
             <p>Cum admodum instructior ex. Simul omittam incorrupte te sit, id facer veritus singulis pri, lorem utinam meliore eos id. Graeci causae voluptatum ex sea, mutat vidisse usu at. Dicam ornatus cu his, et possim sapientem maluisset sea. Ei per solet fabulas senserit.</p>
             <p>Qui virtute delenit perpetua et. Ad vel quaeque eruditi, per no semper nostro interpretaris. Nam ex malorum cotidieque. Pro et everti eligendi, ea duo agam malorum. Idque hendrerit assueverit ut quo. Ex ius putant audire mediocrem, vix graece intellegam ea, dolor epicurei no mel. Vis scaevola appetere ei, mea cu aliquid interpretaris.</p>
             <button data-ref="button" class="button is-normal">Spin</button>
+            &nbsp;
             <button data-ref="messageButton" class="button is-normal">Message</button>
             <div data-ref="formContainer"></div>
         `;

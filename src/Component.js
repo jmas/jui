@@ -42,7 +42,7 @@ export default class Component {
     }
 
     render () {
-        const content = this.preparedContent.replace(/>\s+</gm, '><');
+        const content = this.preparedContent.replace(/(>)\s+/gm, '$1').replace(/\s+(<)/gm, '$1');
         this.clean();
         this._mountEl.insertAdjacentHTML('afterbegin', content || '');
         const refs = this._mountEl.querySelectorAll('[data-ref]');

@@ -32,7 +32,7 @@ It used just for render component inside.
 
 ### Render
 
-This process contains few tree: 1. clean content from the `mountEl`, 2. insert new component content, 
+This process contains tree steps: 1. clean content from the `mountEl`, 2. insert new component content, 
 3. collect `refs`.
 
 You can re-define `render()` method at child class of `Component` and put all element-specific logic 

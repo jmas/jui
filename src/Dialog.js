@@ -11,19 +11,15 @@ export default class Dialog extends Component {
         };
     }
 
-    get template () {
-        const content = this.content;
+    get preparedContent () {
         return `<div class="dialog-box" role="dialog">
-            <div class="dialog-content" data-ref="content">${ content ? content: '' }</div>
+            <div class="dialog-content" data-ref="content">${ this.content || '' }</div>
             ${ this.props.isClosable ? `<button class="dialog-close" data-ref="closeButton">&times;</button>`: '' }
         </div>`;
     }
 
-    get content () {
-        return null;
-    }
-
     render () {
+
         super.render();
         if (this.props.className) {
             this.el.classList = this.props.className;

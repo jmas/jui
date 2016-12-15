@@ -19,7 +19,7 @@ export default class Component {
         return 'div';
     }
 
-    get template () {
+    get content () {
         return null;
     }
 
@@ -40,6 +40,10 @@ export default class Component {
         this.render();
     }
 
+    get preparedContent () {
+        return this.content;
+    }
+
     clean () {
         while (this._rootEl.firstChild) {
             this._rootEl.removeChild(this._rootEl.firstChild);
@@ -48,9 +52,9 @@ export default class Component {
 
     render () {
         const el = document.createElement(this.tagName);
-        const template = this.template;
+        const content = this.preparedContent;
         this._el = el;
-        this._el.insertAdjacentHTML('afterbegin', template || '');
+        this._el.insertAdjacentHTML('afterbegin', content || '');
         const refs = this._el.querySelectorAll('[data-ref]');
         this._refs = {};
         for (let i=0; i<refs.length; i++) {

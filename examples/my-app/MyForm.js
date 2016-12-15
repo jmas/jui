@@ -19,7 +19,7 @@ export default class MyForm extends Form {
         };
     }
 
-    get template () {
+    get content () {
         return `
             <h2>Form example</h2>
             <p>

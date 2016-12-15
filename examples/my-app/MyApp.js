@@ -2,7 +2,7 @@ import Component from '~/src/Component';
 import MyDialog from './MyDialog';
 
 export default class MyApp extends Component {
-    get template () {
+    get content () {
         return `
             <button data-ref="openDialogButton" class="button is-primary">Open Dialog</button>
         `;

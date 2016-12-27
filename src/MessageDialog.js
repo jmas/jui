@@ -10,7 +10,7 @@ export default class MessageDialog extends Dialog {
         };
     }
 
-    get content () {
+    get innerContent () {
         return this.props.message;
     }
 }

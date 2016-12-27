@@ -6,57 +6,82 @@ export default class Dialog extends Component {
             ...super.defaultProps,
             isClosable: true,
             className: 'is-medium',
-            isOpen: false,
+            dialog: {
+                isOpen: false
+            },
             destroyOnClose: false
         };
     }
 
-    get preparedContent () {
+    get binds () {
+        return {
+            ...super.binds,
+            dialog: this._renderDialog.bind(this),
+            closeButton: (el) => el.addEventListener('click', this._handleCloseButtonClick.bind(this))
+        };
+    }
+
+    get content () {
         return `
-            <div class="dialog ${ this.props.className || '' } ${ !this.props.isOpen ? 'is-hidden': '' }">
+            <div data-ref="dialog" class="dialog ${ this.props.className || '' }">
                 <div class="dialog-box" role="dialog">
-                    <div class="dialog-content" data-ref="content">${ this.content || '' }</div>
+                    <div class="dialog-content" data-ref="content">
+                        ${ this.innerContent || '' }
+                    </div>
                     ${ this.props.isClosable ? `<button class="dialog-close" data-ref="closeButton">&times;</button>`: '' }
                 </div>
             </div>
         `;
     }
 
-    render () {
-        super.render();
-        if (this.props.isClosable) {
-            this.refs.closeButton.addEventListener('click', this._handleCloseButtonClick.bind(this));
-        }
+    get innerContent () {
+        return null;
+    }
+
+    get isOpen () {
+        return this.props.dialog.isOpen;
     }
 
     close () {
-        this.props = { isOpen: false };
+        this.setProps({
+            dialog: {
+                isOpen: false
+            }
+        });
         if (this.props.destroyOnClose) {
             this.destroy();
         }
     }
 
     open () {
-        this.props = { isOpen: true };
-    }
-
-    isOpen () {
-        return this.props.isOpen;
+        this.setProps({
+            dialog: {
+                isOpen: true
+            }
+        });
     }
 
     destroy () {
-        if (document.body.contains(this._mountEl)) {
-            document.body.removeChild(this._mountEl);
+        if (document.body.contains(this.mountEl)) {
+            document.body.removeChild(this.mountEl);
         } else {
-            this.clean();
+            while (this.mountEl.firstChild) {
+                this.mountEl.removeChild(this.mountEl.firstChild);
+            }
+        }
+    }
+
+    _renderDialog (el) {
+        if (this.props.dialog.isOpen) {
+            el.classList.remove('is-hidden');
+        } else {
+            el.classList.add('is-hidden');
         }
     }
 
     _handleCloseButtonClick (event) {
         event.preventDefault();
         this.close();
-        if (this.props.onClose) {
-            this.props.onClose();
-        }
+        this.emit('close');
     }
 }

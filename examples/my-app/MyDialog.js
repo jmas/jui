@@ -4,7 +4,7 @@ import MessageDialog from '~/src/MessageDialog';
 import MyForm from './MyForm';
 
 export default class MyDialog extends Dialog {
-    get content () {
+    get innerContent () {
         return `
             <p>Lorem ipsum dolor sit amet, duo tota mnesarchum eu, nam virtute ocurreret consetetur at. Ad vix urbanitas argumentum, eius scriptorem an duo, illum soleat vim eu. Et nam novum eripuit, in paulo pertinacia sea, quo ad meliore accusata repudiare. Quo munere petentium eu, ei dolorem gubergren mei. Cu dolorum officiis posidonium sea, ea option admodum fierent mel.</p>
             <p>An cum affert menandri mandamus. Cum te nonumes singulis, no eos unum quas insolens. Te eos nisl facete. Te sea homero malorum euripidis, ad vel veniam homero volutpat. Et agam solum mea, aliquip dolorum percipitur per at.</p>
@@ -14,8 +14,21 @@ export default class MyDialog extends Dialog {
             <button data-ref="button" class="button is-normal">Spin</button>
             &nbsp;
             <button data-ref="messageButton" class="button is-normal">Message</button>
-            <div data-ref="formContainer"></div>
+            <div data-ref="myForm"></div>
         `;
+    }
+
+    get binds () {
+        return {
+            ...super.binds,
+            myForm: (mountEl) => {
+                const myForm = new MyForm({ mountEl });
+                myForm.on('submit', (payload) => console.log(payload));
+                myForm.on('submit', (payload) => console.log(payload));
+            },
+            button: (el) => el.addEventListener('click', this._handleButtonClick.bind(this)),
+            messageButton: (el) => el.addEventListener('click', this._handleMessageClick.bind(this))
+        };
     }
 
     _handleButtonClick (event) {
@@ -34,14 +47,5 @@ export default class MyDialog extends Dialog {
             destroyOnClose: true
         });
         messageDialog.open();
-    }
-
-    render () {
-        super.render();
-        this.refs.button.addEventListener('click', this._handleButtonClick.bind(this));
-        this.refs.messageButton.addEventListener('click', this._handleMessageClick.bind(this));
-        const myForm = new MyForm({ mountEl: this.refs.formContainer });
-        myForm.on('submit', (payload) => console.log(payload));
-        myForm.on('submit', (payload) => console.log(payload));
     }
 }

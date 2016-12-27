@@ -9,7 +9,7 @@ export default class SpinnerDialog extends Dialog {
         };
     }
 
-    get content () {
+    get innerContent () {
         return `
             <div class="spinner">
                 <div class="spinner-animation">
@@ -19,21 +19,33 @@ export default class SpinnerDialog extends Dialog {
                     <div class="spinner-animation-item spinner-animation-r4"></div>
                     <div class="spinner-animation-item spinner-animation-r5"></div>
                 </div>
-                ${ this.props.message ? `<div class="spinner-message">${ this.props.message }</div>`: '' }
+                <div data-ref="message" class="spinner-message"></div>
             </div>
         `;
     }
 
+    get binds () {
+        return {
+            message: this._renderMessage.bind(this)
+        };
+    }
+
     open () {
         super.open();
-        if (this.props.message) {
-            this.props = { message: this.props.message };
-        }
         if (this.props.closeTimeout) {
             if (typeof this.props.closeTimeout!=='number') {
                 throw new Error('`closeTimeout` should be an Number.');
             }
             setTimeout(() => this.close(), this.props.closeTimeout);
+        }
+    }
+
+    _renderMessage (el) {
+        if (this.props.message) {
+            el.classList.remove('is-hidden');
+            el.innerHTML = this.props.message;
+        } else {
+            el.classList.add('is-hidden');
         }
     }
 }

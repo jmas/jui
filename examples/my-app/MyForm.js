@@ -19,6 +19,12 @@ export default class MyForm extends Component {
         };
     }
 
+    get binds () {
+        return {
+            form: (el) => el.addEventListener('submit', this._handleFormSubmit.bind(this))
+        };
+    }
+
     get content () {
         return `
             <form data-ref="form">
@@ -38,7 +44,7 @@ export default class MyForm extends Component {
                 <p>
                     ${ this.props.fruits.map((fruit) => `
                         <label>
-                            <input data-ref="fruitCheckboxes" type="checkbox" name="fruits[]" value="${ fruit }" ${ this.props.data.fruits.indexOf(fruit)!==-1 ? 'checked': '' } />
+                            <input data-ref="fruitCheckboxes[]" type="checkbox" name="fruits[]" value="${ fruit }" ${ this.props.data.fruits.indexOf(fruit)!==-1 ? 'checked': '' } />
                             ${ fruit }
                         </label>
                     `).join('') }
@@ -46,7 +52,7 @@ export default class MyForm extends Component {
                 <p>
                     ${ this.props.fruits.map((fruit) => `
                         <label>
-                            <input data-ref="fruitRadios" type="radio" name="fruit" value="${ fruit }" ${ this.props.data.fruit===fruit ? 'checked': '' } />
+                            <input data-ref="fruitRadios[]" type="radio" name="fruit" value="${ fruit }" ${ this.props.data.fruit===fruit ? 'checked': '' } />
                             ${ fruit }
                         </label>
                     `).join('') }
@@ -58,24 +64,19 @@ export default class MyForm extends Component {
 
     _handleFormSubmit (event) {
         event.preventDefault();
-        this.props = {
+        this.setProps({
             data: {
                 name: this.refs.name.value,
                 user: this.refs.user.value,
                 fruits: this.refs.fruitCheckboxes.map((fruit) => fruit.checked ? fruit.value: null).filter((fruit) => fruit!==null),
                 fruit: this.refs.fruitRadios.map((fruit) => fruit.checked ? fruit.value: null).filter((fruit) => fruit!==null).shift()
             }
-        };
+        });
         const spinnerDialog = new SpinnerDialog({
             closeTimeout: 1000,
             destroyOnClose: true
         });
         spinnerDialog.open();
         this.emit('submit', this.props.data);
-    }
-
-    render () {
-        super.render();
-        this.refs.form.addEventListener('submit', this._handleFormSubmit.bind(this));
     }
 }

@@ -1,22 +1,45 @@
+/**
+ * @class Emitter
+ */
 export default class Emitter {
-    constructor () {
-        this._handlers = {};
+    /**
+     * @param {Object} handlers
+     */
+    constructor (handlers={}) {
+        this._handlers = handlers || {};
     }
 
+    /**
+     * @param {String} handlerName
+     * @param {Function} handlerFn
+     */
     on (handlerName, handlerFn) {
-        if (typeof handlerFn!=='function') {
+        if (!(handlerFn instanceof Function)) {
             throw new Error('`handlerFn` should be an function.');
         }
         if (!this._handlers[handlerName]) {
             this._handlers[handlerName] = [];
+        } else if (this._handlers[handlerName] instanceof Function) {
+            this._handlers[handlerName] = [this._handlers[handlerName]];
         }
         this._handlers[handlerName].push(handlerFn);
     }
 
+    /**
+     * @param {String} handlerName
+     * @param {Object} payload
+     */
     emit (handlerName, payload={}) {
-        if (this._handlers[handlerName]) {
-            for (let i=0; i<this._handlers[handlerName].length; i++) {
-                this._handlers[handlerName][i](payload);
+        const handler = this._handlers[handlerName];
+        if (handler) {
+            if (handler instanceof Array) {
+                for (let i = 0; i < handler.length; i++) {
+                    handler[i](payload);
+                }
+            } else if (handler instanceof Function) {
+                handler(payload);
+            } else {
+                throw new Error('`handler` should be an instance of Array or Function.');
             }
         }
     }

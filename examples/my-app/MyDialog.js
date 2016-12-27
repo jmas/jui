@@ -2,10 +2,12 @@ import Dialog from '~/src/Dialog';
 import SpinnerDialog from '~/src/SpinnerDialog';
 import MessageDialog from '~/src/MessageDialog';
 import MyForm from './MyForm';
+import MyTabs from './MyTabs';
 
 export default class MyDialog extends Dialog {
     get innerContent () {
         return `
+            <div data-ref="tabs"></div>
             <p>Lorem ipsum dolor sit amet, duo tota mnesarchum eu, nam virtute ocurreret consetetur at. Ad vix urbanitas argumentum, eius scriptorem an duo, illum soleat vim eu. Et nam novum eripuit, in paulo pertinacia sea, quo ad meliore accusata repudiare. Quo munere petentium eu, ei dolorem gubergren mei. Cu dolorum officiis posidonium sea, ea option admodum fierent mel.</p>
             <p>An cum affert menandri mandamus. Cum te nonumes singulis, no eos unum quas insolens. Te eos nisl facete. Te sea homero malorum euripidis, ad vel veniam homero volutpat. Et agam solum mea, aliquip dolorum percipitur per at.</p>
             <p>Ex vix petentium urbanitas maiestatis, maiorum noluisse mel eu, adhuc patrioque in ius. In sed facer exerci, expetendis persequeris eu has. Et mutat philosophia qui, ne autem habemus scaevola sit, vim et amet possim ocurreret. Id vim autem iriure diceret. Te vix error disputationi, ei saperet temporibus interpretaris eam, est malorum eripuit et. Mucius accusamus ut usu, pri an cetero accusata. Ex mucius omnesque deleniti eam.</p>
@@ -27,7 +29,8 @@ export default class MyDialog extends Dialog {
                 myForm.on('submit', (payload) => console.log(payload));
             },
             button: (el) => el.addEventListener('click', this._handleButtonClick.bind(this)),
-            messageButton: (el) => el.addEventListener('click', this._handleMessageClick.bind(this))
+            messageButton: (el) => el.addEventListener('click', this._handleMessageClick.bind(this)),
+            tabs: this._renderTabs.bind(this)
         };
     }
 
@@ -47,5 +50,9 @@ export default class MyDialog extends Dialog {
             destroyOnClose: true
         });
         messageDialog.open();
+    }
+
+    _renderTabs (mountEl) {
+        new MyTabs({ mountEl });
     }
 }

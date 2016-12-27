@@ -16,6 +16,11 @@ body {
     box-sizing: border-box;
 }
 
+button {
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
 /* helpers */
 
 .is-hidden {
@@ -29,7 +34,7 @@ body {
     background-color: transparent;
     border-radius: 3px;
     padding: 10px 15px;
-    font-size: 1em;
+    font-size: 14px;
     cursor: pointer;
     display: inline-block;
     vertical-align: middle;
@@ -128,6 +133,32 @@ body {
 .dialog.is-text-centered .dialog-box {
     text-align: center;
 }
+
+
+/* Tabs */
+.tabs-buttons {
+}
+
+.tabs-buttons button {
+    border: 0;
+    background: transparent;
+}
+
+.tabs-buttons button.is-active {
+    border-bottom: 0;
+    background-color: silver;
+}
+
+.tabs-content {
+    display: none;
+    border: 1px solid silver;
+    padding: 10px;
+}
+
+.tabs-content.is-active {
+    display: block;
+}
+
 
 /**
  * Spinner component.

@@ -63,10 +63,6 @@ export default class Component extends Emitter {
         this._props = { ...this.defaultProps, ...mountProps, ...props };
         this._refs = this._getRefs();
         this._binds = this.binds;
-        const content = this.content;
-        if (content) {
-            this._mountEl.innerHTML = content;
-        }
         this.render();
     }
 
@@ -74,27 +70,29 @@ export default class Component extends Emitter {
      * @param {Object} props
      */
     render (props=null) {
+        const content = this.content;
+        if (content) {
+            this._mountEl.innerHTML = content;
+        }
         this._refs = this._getRefs();
         Object.keys(this._binds).forEach((bindName) => {
-            if ((props===null || bindName in props) && (bindName in this._refs)) {
-                const result = this._binds[bindName].call(this, this._refs[bindName]);
-                if (result instanceof Element) {
-                    this._refs[bindName].innerHTML = '';
-                    this._refs[bindName].appendChild(result);
-                } else if (typeof result==='string') {
-                    this._refs[bindName].innerHTML = result ? result: '';
-                } else if (result instanceof Array) {
-                    this._refs[bindName].innerHTML = '';
-                    for (let i=0; i<result.length; i++) {
-                        if (result[i] instanceof Element) {
-                            this._refs[bindName].appendChild(result[i]);
-                        } else if (result[i] instanceof Component) {
-                            this._refs[bindName].appendChild(result[i].mountEl);
-                        }
+            const result = this._binds[bindName].call(this, this._refs[bindName]);
+            if (result instanceof Element) {
+                this._refs[bindName].innerHTML = '';
+                this._refs[bindName].appendChild(result);
+            } else if (typeof result==='string') {
+                this._refs[bindName].innerHTML = result ? result: '';
+            } else if (result instanceof Array) {
+                this._refs[bindName].innerHTML = '';
+                for (let i=0; i<result.length; i++) {
+                    if (result[i] instanceof Element) {
+                        this._refs[bindName].appendChild(result[i]);
+                    } else if (result[i] instanceof Component) {
+                        this._refs[bindName].appendChild(result[i].mountEl);
                     }
                 }
-                this._refs = this._getRefs();
             }
+            this._refs = this._getRefs();
         });
     }
 

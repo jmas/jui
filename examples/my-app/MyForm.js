@@ -31,7 +31,12 @@ export default class MyForm extends Component {
                 <h2>Form example</h2>
                 <p>
                     <label>Input</label>
-                    <input type="text" name="name" value="${ this.props.data.name || '' }" data-ref="name" />
+                    <input
+                        data-ref="name"
+                        type="text"
+                        name="name"
+                        value="${ this.props.data.name || '' }"
+                    />
                 </p>
                 <p>
                     <label>Select</label>
@@ -44,7 +49,13 @@ export default class MyForm extends Component {
                 <p>
                     ${ this.props.fruits.map((fruit) => `
                         <label>
-                            <input data-ref="fruitCheckboxes[]" type="checkbox" name="fruits[]" value="${ fruit }" ${ this.props.data.fruits.indexOf(fruit)!==-1 ? 'checked': '' } />
+                            <input
+                                data-ref="fruitCheckboxes[]"
+                                type="checkbox"
+                                name="fruits[]"
+                                value="${ fruit }"
+                                ${ this.props.data.fruits.indexOf(fruit)!==-1 ? 'checked': '' }
+                            />
                             ${ fruit }
                         </label>
                     `).join('') }
@@ -52,7 +63,13 @@ export default class MyForm extends Component {
                 <p>
                     ${ this.props.fruits.map((fruit) => `
                         <label>
-                            <input data-ref="fruitRadios[]" type="radio" name="fruit" value="${ fruit }" ${ this.props.data.fruit===fruit ? 'checked': '' } />
+                            <input
+                                data-ref="fruitRadios[]"
+                                type="radio"
+                                name="fruit"
+                                value="${ fruit }"
+                                ${ this.props.data.fruit===fruit ? 'checked': '' }
+                            />
                             ${ fruit }
                         </label>
                     `).join('') }

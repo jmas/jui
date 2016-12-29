@@ -1,11 +1,12 @@
 {
-  "name": "jui",
-  "version": "1.0.0",
+  "name": "j-ui",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "my-app": "browserify ./examples/my-app/index.js --debug -o ./examples/my-app/bundle.js -t [ babelify --presets es2015,stage-2,stage-0,stage-1 --sourceMapsAbsolute --babelrc ]"
+    "my-app": "browserify ./examples/my-app/index.js --debug -o ./examples/my-app/bundle.js -t [ babelify --presets es2015,stage-2,stage-0,stage-1 --sourceMapsAbsolute --babelrc ]",
+    "dist": "browserify ./index.js --debug -o ./dist/index.js -t [ babelify --presets es2015,stage-2,stage-0,stage-1 --sourceMapsAbsolute --babelrc ]"
   },
   "author": "",
   "license": "ISC",
